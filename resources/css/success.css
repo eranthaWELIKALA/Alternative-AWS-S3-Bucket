@@ -1,0 +1,38 @@
+
+body {
+    user-select: none;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.success-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.success-header {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.success-button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navbar {
+    background-color: #24303e;
+}
