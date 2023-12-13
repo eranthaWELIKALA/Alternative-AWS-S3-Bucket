@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
+const uploadPath = process.env.UPLOAD_PATH || 'uploads';
 
 const app = express();
 const port = 9000;
@@ -16,7 +17,7 @@ app.use(cookieParser());
 // Set up multer for file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, `${uploadPath}/`);
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -26,13 +27,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(uploadPath));
 app.use('/resources', express.static(path.join(__dirname, 'resources')));
 // Render the file upload form
 
 function getUploadedFiles() {
     return new Promise((resolve, reject) => {
-        fs.readdir(path.join(__dirname, 'uploads'), (err, files) => {
+        fs.readdir(uploadPath, (err, files) => {
             if (err) {
                 reject(err);
             } else {
@@ -41,6 +42,7 @@ function getUploadedFiles() {
         });
     })
 }
+
 app.get('/', async (req, res) => {
     try {
         let files = await getUploadedFiles();
